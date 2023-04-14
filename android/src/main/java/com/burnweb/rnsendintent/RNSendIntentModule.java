@@ -270,7 +270,7 @@ public class RNSendIntentModule extends ReactContextBaseJavaModule {
       }
     }
 
-    @ReactMethods
+    @ReactMethod
     public void openInstagramDirect(String message) {
         Intent intentDirect = new Intent(Intent.ACTION_SEND);
         intentDirect.setComponent(new ComponentName("com.instagram.android","com.instagram.direct.share.handler.DirectShareHandlerActivity"));
