@@ -692,13 +692,10 @@ public class RNSendIntentModule extends ReactContextBaseJavaModule {
 
         Intent sendIntent = new Intent();
         sendIntent.setPackage("com.instagram.android");
-        sendIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        sendIntent.setType("text/plain");
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.setType(mineType);
-
-        Uri uri = Uri.parse(mediaPath);
-        sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
-
+        sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+        sendIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         this.reactContext.startActivity(sendIntent);
 
     }
