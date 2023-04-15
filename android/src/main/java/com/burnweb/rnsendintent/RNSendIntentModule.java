@@ -271,6 +271,18 @@ public class RNSendIntentModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void openInstagramDirect(String message) {
+        Intent intentDirect = new Intent();
+        //intentDirect.setComponent(new ComponentName("com.instagram.android","com.instagram.direct.share.handler.DirectShareHandlerActivity"));
+        intentDirect.setPackage("com.instagram.android");
+        intentDirect.setType("text/plain");
+        intentDirect.setAction(Intent.ACTION_SEND);
+        intentDirect.putExtra(Intent.EXTRA_TEXT, message);
+        intentDirect.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.reactContext.startActivity(intentDirect);
+    }
+
+    @ReactMethod
     public void sendPhoneCall(String phoneNumberString, Boolean phoneAppOnly) {
       //Needs permission "android.permission.CALL_PHONE"
       Intent sendIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumberString.replaceAll("#", "%23").trim()));
@@ -692,10 +704,13 @@ public class RNSendIntentModule extends ReactContextBaseJavaModule {
 
         Intent sendIntent = new Intent();
         sendIntent.setPackage("com.instagram.android");
-        sendIntent.setType("text/plain");
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, message);
         sendIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.setType(mineType);
+
+        Uri uri = Uri.parse(mediaPath);
+        sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
+
         this.reactContext.startActivity(sendIntent);
 
     }
